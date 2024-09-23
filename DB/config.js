@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-// Ensure your connection string starts with mongodb:// or mongodb+srv://
-const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/myDatabase';
-
-mongoose.connect(mongoURI, {
+mongoose.connect('mongodb://localhost:27017/registation', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
-  .then(() => console.log('MongoDB connected'))
-  .catch((error) => console.error('MongoDB connection error:', error));
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch(err => {
+  console.error('Connection error', err);
+});
