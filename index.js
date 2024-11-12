@@ -5,25 +5,37 @@ const User = require("./DB/users");
 const signupuser = require("./DB/signupuser");
 const app = express();
 
-app.use(express.json());
-app.use(cors());
+// Enable CORS for your frontend URL
+app.use(cors({
+  origin: 'http://192.168.1.5:3000', // Replace with your frontend's URL
+}));
 
+app.use(express.json()); // Middleware to parse JSON
+
+// Register route
 app.post("/register", async (req, resp) => {
-  let user = new User(req.body);
-  let result = await user.save();
-  resp.send(result);
+  try {
+    let user = new User(req.body);
+    let result = await user.save();
+    resp.send(result);
+  } catch (error) {
+    resp.status(500).send({ message: "Error saving user", error });
+  }
 });
 
-
+// Signup route
 app.post("/signup", async (req, resp) => {
-  let user = new signupuser(req.body);
-  let result = await user.save();
-  resp.send(result);
+  try {
+    let user = new signupuser(req.body);
+    let result = await user.save();
+    resp.send(result);
+  } catch (error) {
+    resp.status(500).send({ message: "Error signing up user", error });
+  }
 });
 
-
-const PORT = process.env.PORT || 5000;  // Use PORT from Render
+// Use PORT from environment or default to 5000
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
