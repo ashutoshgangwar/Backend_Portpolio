@@ -8,6 +8,8 @@ const app = express();
 // Enable CORS for your frontend URL
 app.use(cors({
   origin: 'http://192.168.1.5:3000', // Replace with your frontend's URL
+  methods: "GET,POST,PUT,DELETE", // Specify allowed HTTP methods
+  allowedHeaders: "Content-Type,Authorization" // Specify allowed headers
 }));
 
 app.use(express.json()); // Middleware to parse JSON
