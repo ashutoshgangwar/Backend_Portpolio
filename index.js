@@ -26,7 +26,7 @@ app.post("/register", async (req, resp) => {
 });
 
 // Signup route
-app.get("/signup", async (req, resp) => {
+app.get("/register", async (req, resp) => {
   resp.send("server is running and  make his build");
 });
 
