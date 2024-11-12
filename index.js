@@ -24,14 +24,8 @@ app.post("/register", async (req, resp) => {
 });
 
 // Signup route
-app.post("/signup", async (req, resp) => {
-  try {
-    let user = new signupuser(req.body);
-    let result = await user.save();
-    resp.send(result);
-  } catch (error) {
-    resp.status(500).send({ message: "Error signing up user", error });
-  }
+app.get("/signup", async (req, resp) => {
+  resp.send("server is running");
 });
 
 // Use PORT from environment or default to 5000
