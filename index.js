@@ -25,7 +25,7 @@ app.post("/register", async (req, resp) => {
 
 // Signup route
 app.get("/signup", async (req, resp) => {
-  resp.send("server is running");
+  resp.send("server is running and  make his build");
 });
 
 // Use PORT from environment or default to 5000
