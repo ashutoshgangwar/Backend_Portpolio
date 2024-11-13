@@ -13,13 +13,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  }
+  origin: 'http://192.168.1.5:3000', // Replace with your frontend's URL
 }));
 
 app.use(express.json()); // Middleware to parse JSON
@@ -36,13 +30,12 @@ app.post("/register", async (req, resp) => {
 });
 
 // Signup route
-app.post("/signup", async (req, resp) => {
+app.get("/users", async (req, resp) => {
   try {
-    let user = new signupuser(req.body);
-    let result = await user.save();
-    resp.send(result);
+    let users = await User.find();
+    resp.send(users);
   } catch (error) {
-    resp.status(500).send({ message: "Error signing up user", error });
+    resp.status(500).send({ message: "Error fetching users", error });
   }
 });
 
