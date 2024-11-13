@@ -5,15 +5,24 @@ const User = require("./DB/users");
 const signupuser = require("./DB/signupuser");
 const app = express();
 
-// Enable CORS for multiple frontend URLs
+// List of allowed origins
 const allowedOrigins = [
   'http://192.168.1.5:3000',
-  'http://localhost:3000',  // Example for local development
-  'https://ashutoshgangwar.netlify.app/' // Add more URLs as needed
+  'http://localhost:3000', // Example for local development
+  'https://ashutoshgangwar.netlify.app' // Add more URLs as needed
 ];
 
+// Configure CORS to allow multiple origins
 app.use(cors({
-  origin: 'http://192.168.1.5:3000', // Replace with your frontend's URL
+  origin: function (origin, callback) {
+    // Allow requests with no origin (e.g., mobile apps, curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
 app.use(express.json()); // Middleware to parse JSON
